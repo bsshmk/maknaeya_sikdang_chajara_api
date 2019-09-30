@@ -4,9 +4,8 @@ const router = express.Router();
 const controller = require('./restaurant.ctrl');
 
 router.get('/', controller.test);
-router.get('/name', controller.resNames);
 router.get('/info', controller.info);
-router.get('/detailInfo/:id', controller.detailInfo);
-router.get('/review/:id', controller.reviews);
+router.get('/distByLoc', controller.distByLoc);
+router.get('/reviewById', controller.reviewById);
 
 module.exports = router;
