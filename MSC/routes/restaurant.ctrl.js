@@ -11,7 +11,7 @@ let test = function(req, res){
 // append coordinate
 let info = function(req, res){
 
-    var qry = 'SELECT restaurant_id, restaurant_name, rating, review_count_number, gps_N, gps_E FROM restaurant_table';
+    var qry = 'SELECT restaurant_id, restaurant_name, rating, review_count_number, gps_N, gps_E, mean_price FROM restaurant_table';
 
     connection.query(qry, function(err,rows){
         if(err){
