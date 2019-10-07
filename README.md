@@ -91,7 +91,8 @@ GET /restaurant/reviewById
 
 * Response
 
-```[
+```
+[
 {
 "review_id" : "1021480_0",
 "restaurant_id" : "1021480",
