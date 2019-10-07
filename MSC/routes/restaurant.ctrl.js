@@ -24,22 +24,23 @@ let info = function(req, res){
     });
 };
 
-// query 고치기
+// type 지정 안해주면 이중 배열로 반환됨
 let distByLoc = function(req,res){
 
     var latitude = req.query.gps_N.toString();
     var longitude = req.query.gps_E.toString();
     var range = req.query.range.toString();
 
-    var qry = 'SELECT *, (6371*acos(cos(radians((:lat)))*cos(radians(gps_N))*cos(radians(gps_E)-radians((:lon)))+sin(radians((:lat2)))*sin(radians(gps_N)))) AS distance FROM restaurant_table HAVING distance <= (:ran)';
+    var qry = 'SELECT *, (6371*acos(cos(radians(:lat))*cos(radians(gps_N))*cos(radians(gps_E)-radians(:lon))+sin(radians(:lat2))*sin(radians(gps_N)))) AS distance FROM restaurant_table HAVING distance <= :ran';
 
-    model.restaurant_table.query(qry,{
+    model.sequelize.query(qry,{
         replacements: {
             lat: latitude,
             lon: longitude,
             lat2: latitude,
             ran: range
-        }
+        },
+        type: model.sequelize.QueryTypes.SELECT
     }).then(function(results){
         res.json(results);
     });
@@ -72,7 +73,7 @@ let reviewById = function(req, res){
 
     var id = req.query.id.toString();
 
-    model.restaurant_review.findAll({
+    model.review_table.findAll({
         where: {
             restaurant_id: id
         }

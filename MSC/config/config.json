@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": "cs3207",
-    "database": "restaurant",
+    "username": "",
+    "password": "",
+    "database": "",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
