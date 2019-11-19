@@ -1,3 +1,36 @@
+# 막내야 식당 찾아라
+
+
+
+## 소개
+> 음식점을 찾아주는 앱은 다양합니다. 네이버 지도, 구글 맵 등등.. 하지만 다양한 필터를 적용하여 사용자의 니즈에 더 적합한 음식점 리스트를 뽑아주는 앱은 없다고 생각했습니다. "막내야 식당 찾아라" 앱이 당신이 원하는 음식점을 좀 더 정확하게 필터하여 지도 위에서 직관적으로 음식점을 찾을 수 있도록 도와드리겠습니다.
+
+
+## 시스템
+> Client : https://github.com/bsshmk/maknaeya_sikdang_chajara_client
+
+> Server : https://github.com/bsshmk/maknaeya_sikdang_chajara_api
+
+> crawling : https://github.com/bsshmk/maknaeya_sikdang_chajara_crawling
+
+
+
+
+### 참여자
+> 김보성(bsgreentea), 조명기(ChoMk), 조성훈(JoChoSunghoon)
+
+
+# 막내야 식당 찾아라 API
+
+
+## 개발환경
+> Visual Studio Code
+
+
+
+## 개발 언어
+> Javascript
+
 # 막내야 식당 찾아라 API 명세서
 
 ## 모든 식당 정보 가져오기  
@@ -107,5 +140,34 @@ GET /restaurant/reviewById
 "review_contents" : "쩐다",
 "review_score" : "5.0"
 }
+]
+```
+
+## 경도 위도 좌표로 경로 찾기
+
+```
+GET /restaurant/findRoad
+```
+
+* Request
+```
+{
+"x" : 경도 값,
+"y" : 위도 
+}
+```
+
+* Response
+
+```
+[
+  {
+    "x":37.452122,
+    "y":126.657442
+  },
+  {
+    "x":37.452146,
+    "y":126.65746398968597
+  }, ...
 ]
 ```
