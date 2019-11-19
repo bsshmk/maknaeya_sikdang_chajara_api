@@ -3,6 +3,7 @@ var model = require('../models');
 // root
 let test = function(req, res){
     res.send('restaurant root');
+    console.log('asdf');
 };
 
 let test2 = function(req, res){
@@ -42,6 +43,7 @@ let distByLoc = function(req,res){
         },
         type: model.sequelize.QueryTypes.SELECT
     }).then(function(results){
+        console.log('distByLoc');
         res.json(results);
     });
 
@@ -82,10 +84,31 @@ let reviewById = function(req, res){
     });
 };
 
+///////////////////////////////////////
+var navigating = require('../find_road/navigate');
+
+// 시작점과 도착지 받고 경로 반환
+let findRoad = function(req, res){
+
+    var fromLat = parseFloat(req.query.lat1);
+    var fromLng = parseFloat(req.query.lng1);
+
+    var toLat = parseFloat(req.query.lat2);
+    var toLng = parseFloat(req.query.lng2);
+
+    res.send(await navigating.find_road(fromLat, fromLng, toLat, toLng));
+    
+    // console.log("asdf");
+    // console.log(result.size);
+
+    // res.send(result);
+};
+
 module.exports = {
     test: test,
     info: info,
     distByLoc: distByLoc,
     reviewById: reviewById,
-    test2: test2
+    test2: test2,
+    findRoad: findRoad
 };
