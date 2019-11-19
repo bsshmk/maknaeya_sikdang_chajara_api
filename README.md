@@ -152,8 +152,10 @@ GET /restaurant/findRoad
 * Request
 ```
 {
-"x" : 경도 값,
-"y" : 위도 
+  "lat1" : 출발 위치 경도,
+  "lng1" : 출발 위치 위도,
+  "lat2" : 도착 위치 경도,
+  "lng2" : 도착 위치 위도,
 }
 ```
 
