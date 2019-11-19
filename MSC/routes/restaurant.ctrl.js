@@ -88,7 +88,7 @@ let reviewById = function(req, res){
 var navigating = require('../find_road/navigate');
 
 // 시작점과 도착지 받고 경로 반환
-let findRoad = function(req, res){
+let findRoad = async function(req, res){
 
     var fromLat = parseFloat(req.query.lat1);
     var fromLng = parseFloat(req.query.lng1);
@@ -97,6 +97,7 @@ let findRoad = function(req, res){
     var toLng = parseFloat(req.query.lng2);
 
     res.send(await navigating.find_road(fromLat, fromLng, toLat, toLng));
+    // res.json(await navigating.find_road(fromLat, fromLng, toLat, toLng));
     
     // console.log("asdf");
     // console.log(result.size);
