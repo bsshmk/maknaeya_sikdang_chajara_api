@@ -24,6 +24,7 @@
 
 ## 개발 환경
 > Visual Studio Code
+
 > Database 연동 - Sequelize 사용
 
 ## 개발 언어
