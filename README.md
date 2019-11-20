@@ -34,6 +34,7 @@
 <img src="https://github.com/bsshmk/maknaeya_sikdang_chajara_api/blob/master/find_road.jpg" alt="alt text" width="250px" height="500px">
 
 > A* 알고리즘 사용
+
 > 현재 위치로부터 식당까지의 경로를 hexagon grid로 계산하고 {경도, 위도}로 반환
 
 ## 모든 식당 정보 가져오기  
