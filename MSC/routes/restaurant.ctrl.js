@@ -3,7 +3,7 @@ var model = require('../models');
 // root
 let test = function(req, res){
     res.send('restaurant root');
-    console.log('asdf');
+    //console.log('asdf');
 };
 
 let test2 = function(req, res){
@@ -43,7 +43,7 @@ let distByLoc = function(req,res){
         },
         type: model.sequelize.QueryTypes.SELECT
     }).then(function(results){
-        console.log('distByLoc');
+        //console.log('distByLoc');
         res.json(results);
     });
 
@@ -63,10 +63,10 @@ let distByLoc = function(req,res){
      
 //     connection.query(qry, params, function(err, rows){
 //         if(err) {
-//             console.log(err);
+//             //console.log(err);
 //             throw err;
 //         }
-//         console.log('selecting everything');
+//         //console.log('selecting everything');
 //         res.send(rows);
 //     });
 // };
@@ -99,8 +99,8 @@ let findRoad = async function(req, res){
     res.send(await navigating.find_road(fromLat, fromLng, toLat, toLng));
     // res.json(await navigating.find_road(fromLat, fromLng, toLat, toLng));
     
-    // console.log("asdf");
-    // console.log(result.size);
+    // //console.log("asdf");
+    // //console.log(result.size);
 
     // res.send(result);
 };

@@ -13,20 +13,20 @@ function searchHex(latitude, longitude, hexMap) {
         var roundHex = hex_function.hex_linedraw(hex_function.hex_round(fractionalHex), hex_function.hex_round(fractionalHex));
         var hexData = roundHex[0];
         
-        console.log("hex q = " + hexData.q + "\nhex r = " + hexData.r + "\nhex s = " + hexData.s);
+        //console.log("hex q = " + hexData.q + "\nhex r = " + hexData.r + "\nhex s = " + hexData.s);
 
         if (hexMap.get(JSON.stringify(hexData)) != null) {
             // return hexData;
-            console.log("Asdf");
+            //console.log("Asdf");
             res(hexData);
         }
 
-        var hexDirections = hex_function.hex_direction;
+        var hexDirections = hex_function.hex_directions;
         var currentHex = hexData;
         var resultHex = hex_function.Hex(0, 0, 0);
         var distance = 987654321;
 
-        for (hexDirection in hexDirections) {
+        for (hexDirection of hexDirections) {
             var hexDepth = 0;
             var nextHex = currentHex;
             while (true) {
@@ -34,7 +34,7 @@ function searchHex(latitude, longitude, hexMap) {
                     break;
                 }
                 nextHex = hex_function.hex_add(nextHex, hexDirection);
-                if (hexMap.has(nextHex) && distance > hex_function.hex_distance(nextHex, currentHex)) {
+                if (hexMap.get(JSON.stringify(nextHex)) != null && distance > hex_function.hex_distance(nextHex, currentHex)) {
                     distance = hex_function.hex_distance(nextHex, currentHex);
                     resultHex = nextHex;
                     break;

@@ -3,7 +3,10 @@ function Point(x, y) {
 }
 
 function Hex(q, r, s) {
-    if (Math.round(q + r + s) !== 0) throw "q + r + s must be 0";
+    if (Math.round(q + r + s) != 0) {
+        //console.log(Math.round(q+r+s));
+        throw "q + r + s must be 0";
+    }
     return {"q": q, "r": r, "s": s};
 }
 
@@ -126,9 +129,6 @@ function roffset_to_cube(offset, h)
     return Hex(q, r, s);
 }
 
-
-
-
 function DoubledCoord(col, row) {
     return {col: col, row: row};
 }
@@ -243,5 +243,10 @@ Layout,
 hex_to_pixel,
 pixel_to_hex,
 hex_corner_offset,
-polygon_corners
+polygon_corners,
+
+hex_directions,
+hex_diagonals,
+layout_pointy,
+layout_flat
 };

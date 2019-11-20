@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const models = require("./models/index.js");
 
 models.sequelize.sync().then( () => {
-  console.log(" DB 연결 성공");
+  //console.log(" DB 연결 성공");
 }).catch(err => {
-  console.log("연결 실패");
-  console.log(err);
+  //console.log("연결 실패");
+  //console.log(err);
 });
 
 // 1. 데이터베이스 받아와서 해시맵에 등록하기
@@ -32,5 +32,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/restaurant', restaurant);
 
 app.listen(port, function(){
-    console.log('server is running');
+    //console.log('server is running');
 });

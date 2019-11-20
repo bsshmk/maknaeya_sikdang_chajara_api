@@ -21,7 +21,9 @@ const dq = [0, 1, 1, 0, -1, -1];
 const dr = [-1, -1, 0, 1, 1, 0];
 const ds = [1, 0, -1, -1, 0, 1];
 
-const n2n = 18.57;
+// const n2n = 18.57;
+const n2n = 18.59;
+var flag = 0;
 
 function xy(x, y) {
     return { "x": x, "y": y };
@@ -52,6 +54,10 @@ async function reading() {
         fs.readFile('testHexData.txt', 'utf8', function (err, data) {
 
             coord2ID.clear();
+            qrs2ID.clear();
+            id2Coord.clear();
+            id2Qrs.clear();
+            nodeSet.clear();
 
             if (err) rej(err);
 
@@ -68,7 +74,7 @@ async function reading() {
                 var s = parseInt(line[4]);
 
                 // nodeMap.set(tmp_id, tmp_node);
-                coord2ID.set(line[0] + line[1], tmp_id);
+                // coord2ID.set(line[0] + line[1], tmp_id);
 
                 var tmp_qrs = qrs(q, r, s);
                 var tmp_xy = xy(x, y);
@@ -86,8 +92,9 @@ async function reading() {
                 hexMap.set(JSON.stringify(tmp_qrs), tmp_qrs);
 
                 tmp_id++;
+                flag = 1;
             }
-            console.log("reading file");
+            //console.log("reading file");
             res();
         });
     });
@@ -97,22 +104,26 @@ const find_road = async function navigate(fromLat, fromLng, toLat, toLng) {
 
     // return new Promise((res, rej) => {
 
+    if(flag == 0){
         await reading();
+    }
+        preNode.clear();
+        closedList.clear();
 
         var start_hex = await preProc.searchHex(fromLat, fromLng, hexMap);
         var dest_hex = await preProc.searchHex(toLat, toLng, hexMap);
 
-        console.log(start_hex);
-        console.log(dest_hex);
+        //console.log(start_hex);
+        //console.log(dest_hex);
 
-        const start_id = qrs2ID.get(JSON.stringify(start_hex));
+        const start_id = qrs2ID.get(JSON.stringify(start_hex)); 
         const dest_id = qrs2ID.get(JSON.stringify(dest_hex));
 
         var pq = new PriorityQueue();
         // var from_id = coord2ID.get(JSON.stringify(xy(fromLat,fromLng)));
         var from_id = start_id;
 
-        console.log("from id = " + from_id);
+        //console.log("from id = " + from_id);
 
         // var from_qrs = id2Qrs.get(from_id);
         var from_qrs = start_hex;
@@ -123,11 +134,11 @@ const find_road = async function navigate(fromLat, fromLng, toLat, toLng) {
         // const to_id = coord2ID.get(JSON.stringify(xy(toLat, toLng)));
         const to_id = dest_id;
 
-        console.log("dest id = " + to_id);
+        //console.log("dest id = " + to_id);
 
         var num = 0;
 
-        console.log(pq.Top());
+        //console.log(pq.Top());
 
         while (pq.heapSize > 0) {
 
@@ -140,7 +151,7 @@ const find_road = async function navigate(fromLat, fromLng, toLat, toLng) {
             var hq = here.q, hr = here.r, hs = here.s;
             var h_id = here.id;
 
-            console.log("pq id = " + h_id);
+            // //console.log("pq id = " + h_id);
 
             pq.Pop();
 
@@ -185,34 +196,36 @@ const find_road = async function navigate(fromLat, fromLng, toLat, toLng) {
 
         var ret = [];
         // ret.push(id2Coord.get(dest_id));
-        // console.log(ret[0]);
-        ret.push({ "x": toLat, "y": toLng });
-        console.log(ret[0]);
+        // //console.log(ret[0]);
+        // ret.push({ "x": toLat, "y": toLng });
+        ret.push({ "latitude": toLat, "longitude": toLng });
+        //console.log(ret[0]);
 
         var now = to_id;
 
         var cnt = 1;
 
-        console.log("track the route");
+        //console.log("track the route");
         while (true) {
 
             cnt++;
             // ret.push({"x": id2Coord.get(now).x, "y":id2Coord.get(now).y});
-            ret.push(id2Coord.get(now));
-            console.log(ret[cnt - 1]);
-            // console.log("now " + ret[cnt-1].x + " " + ret[cnt-1].y);
+            // ret.push(id2Coord.get(now));
+            ret.push({ "latitude": id2Coord.get(now).x, "longitude":id2Coord.get(now).y});
+            //console.log(ret[cnt - 1]);
+            // //console.log("now " + ret[cnt-1].x + " " + ret[cnt-1].y);
 
             now = preNode.get(now);
             if (now == -1) break;
         }
 
-        ret.push({ "x": fromLat, "y": fromLng });
-        // console.log("asdf");
-        console.log(ret[cnt]);
+        ret.push({ "latitude": fromLat, "longitude": fromLng });
+        // //console.log("asdf");
+        //console.log(ret[cnt]);
 
-        // console.log(">>>>>>>>>");
+        // //console.log(">>>>>>>>>");
 
-        console.log(JSON.stringify(ret));
+        //console.log(JSON.stringify(ret));
 
         // return ret;
         return JSON.stringify(ret);
